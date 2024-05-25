@@ -230,17 +230,23 @@ export default function useItem(props, emits) {
     const target = props.item.external ? '_blank' : '_self'
     const tabindex = props.item.disabled ? -1 : null
     const ariaCurrent = exactActive.value ? 'page' : null
-    const ariaHaspopup = hasChild.value ? true : null
     const ariaExpanded = hasChild.value ? show.value : null
+    const ariaControls = ariaExpanded ? `vsm-${props.item.id}` : null
 
     return {
       href,
       target,
       tabindex,
       'aria-current': ariaCurrent,
-      'aria-haspopup': ariaHaspopup,
       'aria-expanded': ariaExpanded,
+      'aria-controls': ariaControls,
       ...props.item.attributes,
+    }
+  })
+
+  const childAttrs = computed(() => {
+    return {
+      id: `vsm-${props.item.id}`,
     }
   })
 
@@ -319,6 +325,7 @@ export default function useItem(props, emits) {
     hasChild,
     linkClass,
     linkAttrs,
+    childAttrs,
     itemClass,
     isMobileItem,
     mobileItemDropdownStyle,

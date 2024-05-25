@@ -67,6 +67,7 @@
           v-if="show"
           :class="['vsm--child', isMobileItem && 'vsm--child_mobile']"
           :style="isMobileItem && mobileItemDropdownStyle"
+          v-bind="childAttrs"
         >
           <ul class="vsm--dropdown">
             <sidebar-menu-item
@@ -136,6 +137,7 @@ const {
   hasChild,
   linkClass,
   linkAttrs,
+  childAttrs,
   itemClass,
   isMobileItem,
   mobileItemStyle,
