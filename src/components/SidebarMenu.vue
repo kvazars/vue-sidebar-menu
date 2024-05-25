@@ -12,6 +12,8 @@
             v-for="item in computedMenu"
             :key="item.id"
             :item="item"
+            :active-show="activeShow"
+            @update-active-show="updateActiveShow"
           >
             <template #dropdown-icon="{ isOpen }">
               <slot name="dropdown-icon" v-bind="{ isOpen }">
@@ -44,6 +46,7 @@ export default {
 
 <script setup>
 import {
+  ref,
   watch,
   getCurrentInstance,
   onMounted,
@@ -81,8 +84,15 @@ const props = defineProps({
     validator: (value) => ['', 'white-theme'].includes(value),
   },
   showOneChild: {
-    type: Boolean,
+    type: [Boolean, String],
     default: false,
+    validator(value) {
+      if (typeof value === 'string') {
+        return ['deep'].includes(value)
+      } else {
+        return typeof value === 'boolean'
+      }
+    },
   },
   rtl: {
     type: Boolean,
@@ -123,6 +133,8 @@ const {
   updateCurrentRoute,
 } = initSidebar(props, emits)
 
+const activeShow = ref(undefined)
+
 const computedMenu = computed(() => {
   let id = 0
   function transformItems(items) {
@@ -153,6 +165,10 @@ const sidebarClass = computed(() => {
     props.relative && 'vsm_relative',
   ]
 })
+
+const updateActiveShow = (id) => {
+  activeShow.value = id
+}
 
 const onToggleClick = () => {
   unsetMobileItem()

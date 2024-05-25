@@ -6,16 +6,14 @@ import {
   includesParams,
 } from './useRouterLink'
 
-export default function useItem(props) {
+export default function useItem(props, emits) {
   const router = getCurrentInstance().appContext.config.globalProperties.$router
   const {
     getSidebarProps: sidebarProps,
     getIsCollapsed: isCollapsed,
-    getActiveShow: activeShow,
     getMobileItem: mobileItem,
     getMobileItemRect: mobileItemRect,
     getCurrentRoute: currentRoute,
-    updateActiveShow,
     setMobileItem,
     unsetMobileItem,
     clearMobileItemTimeout,
@@ -162,13 +160,25 @@ export default function useItem(props) {
       if (!hasChild.value) return false
       if (isCollapsed.value && isFirstLevel.value) return hover.value
       if (sidebarProps.showChild) return true
-      return sidebarProps.showOneChild && isFirstLevel.value
-        ? props.item.id === activeShow.value
-        : itemShow.value
+      if (
+        (sidebarProps.showOneChild && isFirstLevel.value) ||
+        sidebarProps.showOneChild === 'deep'
+      ) {
+        return props.item.id === props.activeShow
+      } else {
+        return itemShow.value
+      }
     },
     set: (show) => {
-      if (sidebarProps.showOneChild && isFirstLevel.value) {
-        show ? updateActiveShow(props.item.id) : updateActiveShow(null)
+      if (
+        (sidebarProps.showOneChild && isFirstLevel.value) ||
+        sidebarProps.showOneChild === 'deep'
+      ) {
+        if (show) {
+          emits('update-active-show', props.item.id)
+        } else {
+          emits('update-active-show', undefined)
+        }
       }
       itemShow.value = show
     },

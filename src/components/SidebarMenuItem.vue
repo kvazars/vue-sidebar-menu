@@ -74,6 +74,8 @@
               :key="subItem.id"
               :item="subItem"
               :level="level + 1"
+              :active-show="subActiveShow"
+              @update-active-show="updateActiveShow"
             >
               <template #dropdown-icon="{ isOpen }">
                 <slot name="dropdown-icon" v-bind="{ isOpen }" />
@@ -93,7 +95,7 @@ export default {
 </script>
 
 <script setup>
-import { toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useSidebar } from '../use/useSidebar'
 import useItem from '../use/useItem'
 
@@ -110,10 +112,21 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  activeShow: {
+    type: String,
+    default: undefined,
+  },
 })
+
+const emits = defineEmits(['update-active-show'])
 
 const { getSidebarProps, getIsCollapsed: isCollapsed } = useSidebar()
 const { linkComponentName } = toRefs(getSidebarProps)
+const subActiveShow = ref(undefined)
+
+const updateActiveShow = (id) => {
+  subActiveShow.value = id
+}
 
 const {
   show,
@@ -137,5 +150,5 @@ const {
   onExpandAfterEnter,
   onExpandBeforeLeave,
   onExpandAfterLeave,
-} = useItem(props)
+} = useItem(props, emits)
 </script>

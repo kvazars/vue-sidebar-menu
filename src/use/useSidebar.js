@@ -5,7 +5,6 @@ export const initSidebar = (props, emits) => {
 
   const sidebarRef = ref(null)
   const isCollapsed = ref(collapsed.value)
-  const activeShow = ref(null)
   const mobileItem = reactive({
     item: null,
     rect: {
@@ -24,10 +23,6 @@ export const initSidebar = (props, emits) => {
 
   const updateIsCollapsed = (val) => {
     isCollapsed.value = val
-  }
-
-  const updateActiveShow = (id) => {
-    activeShow.value = id
   }
 
   const setMobileItem = ({ item, itemEl }) => {
@@ -141,13 +136,11 @@ export const initSidebar = (props, emits) => {
   provide('vsmProps', props)
   provide('getSidebarRef', sidebarRef)
   provide('getIsCollapsed', isCollapsed)
-  provide('getActiveShow', activeShow)
   provide('getMobileItem', getMobileItem)
   provide('getMobileItemRect', getMobileItemRect)
   provide('getCurrentRoute', currentRoute)
 
   provide('updateIsCollapsed', updateIsCollapsed)
-  provide('updateActiveShow', updateActiveShow)
   provide('setMobileItem', setMobileItem)
   provide('unsetMobileItem', unsetMobileItem)
   provide('clearMobileItemTimeout', clearMobileItemTimeout)
@@ -157,12 +150,10 @@ export const initSidebar = (props, emits) => {
   return {
     getSidebarRef: sidebarRef,
     getIsCollapsed: isCollapsed,
-    getActiveShow: activeShow,
     getMobileItem,
     getMobileItemRect,
     getCurrentRoute: currentRoute,
     updateIsCollapsed,
-    updateActiveShow,
     setMobileItem,
     unsetMobileItem,
     clearMobileItemTimeout,
@@ -175,12 +166,10 @@ export const useSidebar = () => ({
   getSidebarProps: inject('vsmProps'),
   getSidebarRef: inject('getSidebarRef'),
   getIsCollapsed: inject('getIsCollapsed'),
-  getActiveShow: inject('getActiveShow'),
   getMobileItem: inject('getMobileItem'),
   getMobileItemRect: inject('getMobileItemRect'),
   getCurrentRoute: inject('getCurrentRoute'),
   updateIsCollapsed: inject('updateIsCollapsed'),
-  updateActiveShow: inject('updateActiveShow'),
   setMobileItem: inject('setMobileItem'),
   unsetMobileItem: inject('unsetMobileItem'),
   clearMobileItemTimeout: inject('clearMobileItemTimeout'),

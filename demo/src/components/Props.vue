@@ -28,9 +28,9 @@
     default: '65px'
   },
 
-  // Keep only one child opened at a time (first level only)
+  // Keep only one child opened at a time (true: first level only, 'deep': all levels)
   showOneChild: {
-    type: Boolean,
+    type: [Boolean, String],
     default: false
   },
 

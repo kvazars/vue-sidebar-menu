@@ -96,10 +96,10 @@ export class SidebarMenu {
   widthCollapsed?: string;
 
   /**
-   * Keep only one child opened at a time (first level only).
+   * Keep only one child opened at a time (true: first level only, 'deep': all levels)
    *
    */
-  showOneChild?: boolean;
+  showOneChild?: boolean | 'deep';
 
   /**
    * Keep all child open.
