@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin sidebar-theme {
   background-color: var(--vsm-base-bg);
   .vsm--item {
@@ -79,7 +81,7 @@
   }
   .vsm--badge_default {
     color: var(--vsm-item-color);
-    background-color: darken($base-bg, 5%);
+    background-color: color.adjust($base-bg, $lightness: -5%);
   }
   .vsm--toggle-btn {
     color: var(--vsm-toggle-btn-color);

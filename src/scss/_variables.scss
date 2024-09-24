@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $primary-color: #4285f4 !default;
 $base-bg: #2a2a2e !default;
 
@@ -11,10 +13,10 @@ $item-open-color: #fff !default;
 $item-open-bg: $primary-color !default;
 
 $item-hover-color: null !default;
-$item-hover-bg: rgba(darken($base-bg, 5%), 0.5) !default;
+$item-hover-bg: rgba(color.adjust($base-bg, $lightness: -5%), 0.5) !default;
 
 $icon-color: $item-color !default;
-$icon-bg: darken($base-bg, 5%) !default;
+$icon-bg: color.adjust($base-bg, $lightness: -5%) !default;
 
 $icon-active-color: null !default;
 $icon-active-bg: null !default;
@@ -28,12 +30,12 @@ $mobile-icon-color: $mobile-item-color !default;
 $mobile-icon-bg: transparent !default;
 
 $dropdown-color: null !default;
-$dropdown-bg: lighten($base-bg, 5%) !default;
+$dropdown-bg: color.adjust($base-bg, $lightness: 5%) !default;
 
 $header-item-color: rgba($item-color, 0.7) !default;
 
 $toggle-btn-color: #fff !default;
-$toggle-btn-bg: darken($base-bg, 5%) !default;
+$toggle-btn-bg: color.adjust($base-bg, $lightness: -5%) !default;
 
 $item-font-size: 16px !default;
 $item-line-height: 35px !default;
